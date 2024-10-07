@@ -1,6 +1,9 @@
 services:
   php:
-    image: ${IMAGES_PREFIX:-}app-php
+#    image: ${IMAGES_PREFIX:-}app-php
+    build: .
+    image: app-php
+    
     restart: unless-stopped
     environment:
       SERVER_NAME: ${SERVER_NAME:-localhost}, php:80
@@ -43,7 +46,8 @@ services:
       MARIADB_DATABASE: ${MYSQL_DATABASE:-app}
       MARIADB_ROOT_PASSWORD: ${MYSQL_PASSWORD:-password}
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      #test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized" ]
       timeout: 5s
       retries: 5
       start_period: 60s

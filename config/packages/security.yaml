@@ -38,6 +38,9 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        # Accès aux sociétés
+        - { path: ^/api/companies, roles: ROLE_USER }
+        - { path: ^/api/projects, roles: ROLE_USER }
 
 when@test:
     security:
